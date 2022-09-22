@@ -36,22 +36,23 @@ public class SplitPageController {
   @FXML
   private Button closeButton;
   @FXML
-  private Ellipse ellipseFirstStage;
+  private Ellipse firstStageEllipse;
   @FXML
-  private Ellipse ellipseSecondStage;
+  private Ellipse secondStageEllipse;
   @FXML
-  private Ellipse ellipseThirdStage;
+  private Ellipse thirdStageEllipse;
   @FXML
-  private Ellipse ellipseForthStage;
+  private Ellipse forthStageEllipse;
   @FXML
-  private Line lineFirstStage;
+  private Line firstStageLine;
   @FXML
-  private Line lineSecondStage;
+  private Line secondStageLine;
   @FXML
-  private Line lineThirdStage;
+  private Line thirdStageLine;
 
   private File fileForSplit = new File("");
   private final Color colorReadyStage = Color.rgb(43, 152, 240);
+  private final Color colorCurrentStage = Color.rgb(146, 193, 0);
 
   @FXML
   protected void goToHomePage(ActionEvent event) throws IOException {
@@ -73,8 +74,9 @@ public class SplitPageController {
       NoContentException.contentNotChosen(NoContentTypeEnum.FILE);
     } else {
       testButton.setDisable(false);
-      ellipseFirstStage.setFill(colorReadyStage);
-      lineFirstStage.setStroke(colorReadyStage);
+      firstStageEllipse.setFill(colorReadyStage);
+      secondStageEllipse.setFill(colorCurrentStage);
+      firstStageLine.setStroke(colorReadyStage);
     }
   }
 
@@ -86,17 +88,18 @@ public class SplitPageController {
     }
     startButton.setDisable(false);
     comboBox.setDisable(false);
-    ellipseSecondStage.setFill(colorReadyStage);
-    lineSecondStage.setStroke(colorReadyStage);
+    secondStageEllipse.setFill(colorReadyStage);
+    thirdStageEllipse.setFill(colorCurrentStage);
+    secondStageLine.setStroke(colorReadyStage);
   }
 
   @FXML
   protected void splitFile(ActionEvent event) throws Exception {
     String pathFolder = createFolderForSplitFile(removeExtension(fileForSplit.getName()));
     Splitter.splitForManyFiles(pathFolder, fileForSplit, comboBox.getValue());
-    ellipseThirdStage.setFill(colorReadyStage);
-    lineThirdStage.setStroke(colorReadyStage);
-    ellipseForthStage.setFill(colorReadyStage);
+    thirdStageEllipse.setFill(colorReadyStage);
+    thirdStageLine.setStroke(colorReadyStage);
+    forthStageEllipse.setFill(colorReadyStage);
     closeButton.setDisable(false);
   }
 }

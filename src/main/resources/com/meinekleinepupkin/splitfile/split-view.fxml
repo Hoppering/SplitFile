@@ -6,39 +6,20 @@
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.shape.Line?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-  prefHeight="420.0" prefWidth="230.0" xmlns="http://javafx.com/javafx/18"
-  xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="com.meinekleinepupkin.splitfile.controller.SplitPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="230.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.meinekleinepupkin.splitfile.controller.SplitPageController">
   <children>
-    <Button fx:id="testButton" disable="true" layoutX="102.0" layoutY="172.0"
-      mnemonicParsing="false" onAction="#testSplitFile" prefHeight="25.0" prefWidth="100.0"
-      text="Test"/>
-    <Ellipse fx:id="ellipseSecondStage" fill="DARKGRAY" layoutX="40.0" layoutY="184.0"
-      radiusX="10.0" radiusY="10.0" stroke="DARKGRAY" strokeType="INSIDE"/>
-    <Ellipse fx:id="ellipseThirdStage" fill="DARKGRAY" layoutX="40.0" layoutY="273.0" radiusX="10.0"
-      radiusY="10.0" stroke="DARKGRAY" strokeType="INSIDE"/>
-    <Button fx:id="startButton" disable="true" layoutX="102.0" layoutY="283.0"
-      mnemonicParsing="false" onAction="#splitFile" prefHeight="25.0" prefWidth="100.0"
-      text="Start"/>
-    <Line fx:id="lineSecondStage" endX="-77.0" endY="-196.0" layoutX="117.0" layoutY="390.0"
-      startX="-77.0" startY="-127.0" stroke="DARKGRAY" strokeWidth="3.0"/>
-    <Button fx:id="closeButton" disable="true" layoutX="102.0" layoutY="362.0"
-      mnemonicParsing="false" onAction="#goToHomePage" prefHeight="25.0" prefWidth="100.0"
-      text="Close"/>
-    <Ellipse fx:id="ellipseForthStage" fill="DARKGRAY" layoutX="40.0" layoutY="374.0" radiusX="10.0"
-      radiusY="10.0" stroke="DARKGRAY" strokeType="INSIDE"/>
-    <Line fx:id="lineThirdStage" endX="-77.0" endY="-196.0" layoutX="117.0" layoutY="476.0"
-      startX="-77.0" startY="-112.0" stroke="DARKGRAY" strokeWidth="3.0"/>
-    <Ellipse fx:id="ellipseFirstStage" fill="DARKGRAY" layoutX="40.0" layoutY="99.0" radiusX="10.0"
-      radiusY="10.0" stroke="DARKGRAY" strokeType="INSIDE"/>
-    <Line fx:id="lineFirstStage" endX="-115.0" endY="-178.0" layoutX="155.0" layoutY="287.0"
-      startX="-115.0" startY="-113.0" stroke="DARKGRAY" strokeWidth="3.0"/>
-    <Button layoutX="102.0" layoutY="87.0" mnemonicParsing="false" onAction="#chooseFile"
-      prefHeight="25.0" prefWidth="100.0" text="Choose file"/>
-    <Button layoutX="66.0" layoutY="25.0" mnemonicParsing="false" onAction="#goToHomePage"
-      prefHeight="25.0" prefWidth="100.0" text="Back"/>
-    <ComboBox fx:id="comboBox" disable="true" layoutX="102.0" layoutY="251.0" prefHeight="25.0"
-      prefWidth="100.0"/>
+    <Button fx:id="testButton" disable="true" layoutX="102.0" layoutY="172.0" mnemonicParsing="false" onAction="#testSplitFile" prefHeight="25.0" prefWidth="100.0" text="Test" />
+    <Ellipse fx:id="secondStageEllipse" fill="DARKGRAY" layoutX="40.0" layoutY="184.0" radiusX="10.0" radiusY="10.0" stroke="DARKGRAY" strokeType="INSIDE" />
+    <Ellipse fx:id="thirdStageEllipse" fill="DARKGRAY" layoutX="40.0" layoutY="273.0" radiusX="10.0" radiusY="10.0" stroke="DARKGRAY" strokeType="INSIDE" />
+    <Button fx:id="startButton" disable="true" layoutX="102.0" layoutY="283.0" mnemonicParsing="false" onAction="#splitFile" prefHeight="25.0" prefWidth="100.0" text="Start" />
+    <Line fx:id="secondStageLine" endX="-77.0" endY="-196.0" layoutX="117.0" layoutY="390.0" startX="-77.0" startY="-127.0" stroke="DARKGRAY" strokeWidth="3.0" />
+    <Button fx:id="closeButton" disable="true" layoutX="102.0" layoutY="362.0" mnemonicParsing="false" onAction="#goToHomePage" prefHeight="25.0" prefWidth="100.0" text="Close" />
+    <Ellipse fx:id="forthStageEllipse" fill="DARKGRAY" layoutX="40.0" layoutY="374.0" radiusX="10.0" radiusY="10.0" stroke="DARKGRAY" strokeType="INSIDE" />
+    <Line fx:id="thirdStageLine" endX="-77.0" endY="-196.0" layoutX="117.0" layoutY="476.0" startX="-77.0" startY="-112.0" stroke="DARKGRAY" strokeWidth="3.0" />
+    <Ellipse fx:id="firstStageEllipse" fill="#92c100" layoutX="40.0" layoutY="99.0" radiusX="10.0" radiusY="10.0" stroke="#92c100" strokeType="INSIDE" />
+    <Line fx:id="firstStageLine" endX="-115.0" endY="-178.0" layoutX="155.0" layoutY="287.0" startX="-115.0" startY="-113.0" stroke="DARKGRAY" strokeWidth="3.0" />
+    <Button layoutX="102.0" layoutY="87.0" mnemonicParsing="false" onAction="#chooseFile" prefHeight="25.0" prefWidth="100.0" text="Choose file" />
+    <Button layoutX="66.0" layoutY="25.0" mnemonicParsing="false" onAction="#goToHomePage" prefHeight="25.0" prefWidth="100.0" text="Back" />
+    <ComboBox fx:id="comboBox" disable="true" layoutX="102.0" layoutY="251.0" prefHeight="25.0" prefWidth="100.0" />
   </children>
 </AnchorPane>

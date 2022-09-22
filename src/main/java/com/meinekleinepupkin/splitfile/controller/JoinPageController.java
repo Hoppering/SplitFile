@@ -37,6 +37,7 @@ public class JoinPageController {
   private Button closeButton;
   private File fileForJoin = new File("");
   private final Color colorReadyStage = Color.rgb(43, 152, 240);
+  private final Color colorCurrentStage = Color.rgb(146, 193, 0);
 
   @FXML
   protected void goToHomePage(ActionEvent event) throws IOException {
@@ -49,7 +50,7 @@ public class JoinPageController {
   }
 
   @FXML
-  protected void chooseDirectory(ActionEvent event){
+  protected void chooseDirectory(ActionEvent event) {
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     DirectoryChooser directoryChooser = new DirectoryChooser();
     fileForJoin = directoryChooser.showDialog(stage);
@@ -58,7 +59,7 @@ public class JoinPageController {
     } else {
       firstStageEllipse.setFill(colorReadyStage);
       firstStageLine.setStroke(colorReadyStage);
-      secondStageEllipse.setFill(colorReadyStage);
+      secondStageEllipse.setFill(colorCurrentStage);
       startButton.setDisable(false);
     }
   }
@@ -66,6 +67,7 @@ public class JoinPageController {
   @FXML
   protected void joinFilesToOne(ActionEvent event) throws Exception {
     Splitter.joinForManyFiles(fileForJoin.getAbsolutePath());
+    secondStageEllipse.setFill(colorReadyStage);
     secondStageLine.setStroke(colorReadyStage);
     thirdStageEllipse.setFill(colorReadyStage);
     closeButton.setDisable(false);
