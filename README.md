@@ -7,6 +7,7 @@ Application that can help split file for 2 to 20 parts of files. After split, ap
 
 # Stages
 ![alt text](https://github.com/Hoppering/SplitFile/blob/master/Stages.png)
+
 During the execution of the program, the passed stages will be marked with different colors.
 
 Stages:
