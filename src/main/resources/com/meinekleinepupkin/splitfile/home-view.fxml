@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+  prefHeight="139.0" prefWidth="230.0" xmlns="http://javafx.com/javafx/18"
+  xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="com.meinekleinepupkin.splitfile.controller.HomePageController">
+  <children>
+    <Button layoutX="55.0" layoutY="84.0" mnemonicParsing="false" onAction="#goToJoinPage"
+      prefHeight="25.0" prefWidth="120.0" text="Join"/>
+    <Button layoutX="55.0" layoutY="25.0" mnemonicParsing="false" onAction="#goToSplitPage"
+      prefHeight="25.0" prefWidth="120.0" text="Split"/>
+  </children>
+</AnchorPane>
