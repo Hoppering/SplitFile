@@ -1,6 +1,6 @@
 # SplitFile
 
-Application that can help split file for 2 to 20 parts of files. After split, application can join parts to one file.
+Application that can help split the file into 2 - 20 parts. After split, application can join parts into the single file.
 
 # Dependencies
 - JavaFX.
@@ -12,6 +12,6 @@ During the execution of the program, the passed stages will be marked with diffe
 
 Stages:
 1. Choose file for split;
-2. Test - application test to split file for 2 to 20 parts of the file; 
+2. Test - application test to split the file into 2 - 20 parts of the file; 
 3. After succesfully tests, can choose parts, that successfully passed tests;
 4. File will be splitted.
