@@ -47,7 +47,8 @@ public class Splitter {
   }
 
   public static List<Integer> checkPossiblyAmount(File file) throws Exception {
-    String pathFolder = createFolderForSplitFile(removeExtension(file.getName()));
+    //String pathFolder = createFolderForSplitFile(removeExtension(file.getName()));
+    String pathFolder = createFolderForSplitFile(file);
     List<Integer> possiblyAmount = new ArrayList<>();
     for (int i = 2; i <= 20; i++) {
       Splitter.splitForManyFiles(pathFolder, file, i);

@@ -95,7 +95,7 @@ public class SplitPageController {
 
   @FXML
   protected void splitFile(ActionEvent event) throws Exception {
-    String pathFolder = createFolderForSplitFile(removeExtension(fileForSplit.getName()));
+    String pathFolder = createFolderForSplitFile(fileForSplit);
     Splitter.splitForManyFiles(pathFolder, fileForSplit, comboBox.getValue());
     thirdStageEllipse.setFill(colorReadyStage);
     thirdStageLine.setStroke(colorReadyStage);

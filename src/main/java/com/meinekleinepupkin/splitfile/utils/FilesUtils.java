@@ -61,10 +61,11 @@ public class FilesUtils {
     return fileName;
   }
 
-  public static String createFolderForSplitFile(String fileName) {
+  public static String createFolderForSplitFile(File file) {
     String dateTime = String.valueOf(new Date().getTime());
-    File folder = new File(
-        System.getProperty("user.dir") + "/" + new Date().getTime() + "-" + fileName);
+    String fileName = removeExtension(file.getName());
+    String filePath = file.getParent();
+    File folder = new File(filePath + "/" + new Date().getTime() + "-" + fileName);
     if (!folder.exists()) {
       folder.mkdir();
     }
