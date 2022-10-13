@@ -16,7 +16,7 @@ public class HomePageController {
   @FXML
   protected void goToSplitPage(ActionEvent event) throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(SplitApplication.class.getResource("split-view.fxml"));
-    Parent root = (Parent) fxmlLoader.load();
+    Parent root = fxmlLoader.load();
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     Scene scene = new Scene(root);
     stage.setScene(scene);
@@ -26,7 +26,7 @@ public class HomePageController {
   @FXML
   protected void goToJoinPage(ActionEvent event) throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(SplitApplication.class.getResource("join-view.fxml"));
-    Parent root = (Parent) fxmlLoader.load();
+    Parent root = fxmlLoader.load();
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     Scene scene = new Scene(root);
     stage.setScene(scene);

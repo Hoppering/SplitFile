@@ -42,7 +42,7 @@ public class JoinPageController {
   @FXML
   protected void goToHomePage(ActionEvent event) throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(SplitApplication.class.getResource("home-view.fxml"));
-    Parent root = (Parent) fxmlLoader.load();
+    Parent root = fxmlLoader.load();
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     Scene scene = new Scene(root);
     stage.setScene(scene);

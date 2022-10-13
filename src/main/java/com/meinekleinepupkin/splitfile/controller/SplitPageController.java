@@ -2,7 +2,6 @@ package com.meinekleinepupkin.splitfile.controller;
 
 
 import static com.meinekleinepupkin.splitfile.utils.FilesUtils.createFolderForSplitFile;
-import static com.meinekleinepupkin.splitfile.utils.FilesUtils.removeExtension;
 
 import com.meinekleinepupkin.splitfile.SplitApplication;
 import com.meinekleinepupkin.splitfile.exception.NoContentException;
@@ -10,7 +9,8 @@ import com.meinekleinepupkin.splitfile.exception.NoContentTypeEnum;
 import com.meinekleinepupkin.splitfile.service.Splitter;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,11 +53,12 @@ public class SplitPageController {
   private File fileForSplit = new File("");
   private final Color colorReadyStage = Color.rgb(43, 152, 240);
   private final Color colorCurrentStage = Color.rgb(146, 193, 0);
+  Map<Integer, Integer> possiblyAmount = new HashMap<>();
 
   @FXML
   protected void goToHomePage(ActionEvent event) throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(SplitApplication.class.getResource("home-view.fxml"));
-    Parent root = (Parent) fxmlLoader.load();
+    Parent root = fxmlLoader.load();
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     Scene scene = new Scene(root);
     stage.setScene(scene);
@@ -82,9 +83,9 @@ public class SplitPageController {
 
   @FXML
   protected void testSplitFile(ActionEvent event) throws Exception {
-    List<Integer> possiblyAmount = Splitter.checkPossiblyAmount(fileForSplit);
-    for (Integer item : possiblyAmount) {
-      comboBox.getItems().add(item);
+    possiblyAmount = Splitter.checkPossiblyAmount(fileForSplit);
+    for (Map.Entry<Integer, Integer> entry : possiblyAmount.entrySet()) {
+      comboBox.getItems().add(entry.getKey());
     }
     startButton.setDisable(false);
     comboBox.setDisable(false);
@@ -96,7 +97,12 @@ public class SplitPageController {
   @FXML
   protected void splitFile(ActionEvent event) throws Exception {
     String pathFolder = createFolderForSplitFile(fileForSplit);
-    Splitter.splitForManyFiles(pathFolder, fileForSplit, comboBox.getValue());
+    for (Map.Entry<Integer, Integer> entry : possiblyAmount.entrySet()) {
+      if (entry.getKey().equals(comboBox.getValue())) {
+        Splitter.splitForManyFiles(pathFolder, fileForSplit, entry.getKey(), entry.getValue());
+        break;
+      }
+    }
     thirdStageEllipse.setFill(colorReadyStage);
     thirdStageLine.setStroke(colorReadyStage);
     forthStageEllipse.setFill(colorReadyStage);
