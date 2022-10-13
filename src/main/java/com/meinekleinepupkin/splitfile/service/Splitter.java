@@ -51,18 +51,14 @@ public class Splitter {
   public static Map<Integer, Integer> checkPossiblyAmount(File file) throws Exception {
     String pathFolder = createFolderForSplitFile(file);
     Map<Integer, Integer> possiblyAmount = new HashMap<>();
-    for (int amountToSplit = 0; amountToSplit < 10; amountToSplit++) {
-      List<Integer> possiblyAmountList = new ArrayList<>();
+    for (int amountToSplit = 2; amountToSplit < 10; amountToSplit++) {
       for (int numberExtraBytes = 0; numberExtraBytes < 10; numberExtraBytes++) {
         Splitter.splitForManyFiles(pathFolder, file, amountToSplit, numberExtraBytes);
         File testFile = Splitter.joinForManyFiles(pathFolder);
         if (Arrays.equals(Files.readAllBytes(file.toPath()),
             Files.readAllBytes(testFile.toPath()))) {
-          possiblyAmountList.add(numberExtraBytes);
+          possiblyAmount.put(amountToSplit, numberExtraBytes);
         }
-      }
-      if (!possiblyAmountList.isEmpty()) {
-        possiblyAmount.put(amountToSplit, possiblyAmountList.get(0));
       }
     }
 
