@@ -6,7 +6,7 @@ Application that can help split the file into 2 - 20 parts. After split, applica
 - JavaFX.
 
 # Stages
-![alt text](https://github.com/Hoppering/SplitFile/blob/master/Stages.png)
+![alt text][https://github.com/Hoppering/SplitFile/blob/master/Stages.png)
 
 During the execution of the program, the passed stages will be marked with different colors.
 
