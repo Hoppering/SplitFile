@@ -12,6 +12,5 @@ During the execution of the program, the passed stages will be marked with diffe
 
 Stages:
 1. Choose file for split;
-2. Test - application test to split the file into 2 - 20 parts of the file; 
-3. After succesfully tests, can choose parts, that successfully passed tests;
-4. File will be splitted.
+2. Choose, how many parts will be divided the file;
+3. File will be splitted.
