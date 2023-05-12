@@ -1,69 +1,67 @@
 package com.meinekleinepupkin.splitfile.service;
 
 
-import static com.meinekleinepupkin.splitfile.utils.FilesUtils.createFolderForSplitFile;
-
 import com.meinekleinepupkin.splitfile.utils.FilesPartUtils;
 import com.meinekleinepupkin.splitfile.utils.FilesRemoveUtil;
-import com.meinekleinepupkin.splitfile.utils.FilesUtils;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class Splitter {
 
-  public static void splitForManyFiles(String pathToFolder, File file, int countOfSplit,
-      int amountExtraBytes) throws IOException {
-    FilesUtils.createMetaFile(pathToFolder, file);
-    for (int i = 1; i <= countOfSplit; i++) {
-      int lastFilesBytes = FilesPartUtils.createPartOfFile(file, pathToFolder, amountExtraBytes,
-          Files.readAllBytes(file.toPath()), i, countOfSplit);
-      if (i == countOfSplit && amountExtraBytes != 0) {
-        FilesPartUtils.createPartOfFileWithExtraBytes(file, pathToFolder, amountExtraBytes,
-            Files.readAllBytes(file.toPath()), i + 1, lastFilesBytes);
-      }
-    }
-  }
+  public static void splitForManyFiles(String pathToFolder, File file, int numParts)
+      throws IOException {
 
-  public static File joinForManyFiles(String pathToFolder) throws IOException {
-    String fileName = FilesUtils.readMetaDataName(pathToFolder);
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    File resFile = new File(pathToFolder + "/" + fileName);
-    List<String> files = FilesPartUtils.getAllParts(pathToFolder);
-    for (String item : files) {
-      File file = new File(item);
-      byte[] fileBytes = Files.readAllBytes(file.toPath());
-      outputStream.write(fileBytes);
-      FilesRemoveUtil.removeFileOrFolder(file.toPath().toString());
-    }
-    byte[] resultBytesForFile = outputStream.toByteArray();
-    Files.write(resFile.toPath(), resultBytesForFile);
-    FilesRemoveUtil.removeFileOrFolder(pathToFolder + "/METAFILE.txt");
-    return resFile;
-  }
+    final long fileSize = file.length();
+    final long chunkSize = fileSize / numParts;
+    final long remainingBytes = fileSize % numParts;
 
-  public static Map<Integer, Integer> checkPossiblyAmount(File file) throws Exception {
-    String pathFolder = createFolderForSplitFile(file);
-    Map<Integer, Integer> possiblyAmount = new HashMap<>();
-    for (int amountToSplit = 2; amountToSplit < 10; amountToSplit++) {
-      for (int numberExtraBytes = 0; numberExtraBytes < 10; numberExtraBytes++) {
-        Splitter.splitForManyFiles(pathFolder, file, amountToSplit, numberExtraBytes);
-        File testFile = Splitter.joinForManyFiles(pathFolder);
-        if (Arrays.equals(Files.readAllBytes(file.toPath()),
-            Files.readAllBytes(testFile.toPath()))) {
-          possiblyAmount.put(amountToSplit, numberExtraBytes);
+    try (final FileInputStream inputStream = new FileInputStream(file)) {
+      byte[] buffer = new byte[(int) chunkSize];
+      for (int i = 0; i < numParts; i++) {
+        final String chunkFileName =
+            pathToFolder + "\\" + new Date().getTime() + "-#-" + file.getName() + ".kreker";
+        try (FileOutputStream outputStream = new FileOutputStream(chunkFileName)) {
+          int bytesRead = 0;
+          while (bytesRead < chunkSize) {
+            int bytesToRead = (int) Math.min(buffer.length, chunkSize - bytesRead);
+            int n = inputStream.read(buffer, 0, bytesToRead);
+            if (n <= 0) {
+              break;
+            }
+            outputStream.write(buffer, 0, n);
+            bytesRead += n;
+          }
+          if (i == numParts - 1 && remainingBytes > 0) {
+            final byte[] remainingBuffer = new byte[(int) remainingBytes];
+            final int n = inputStream.read(remainingBuffer);
+            outputStream.write(remainingBuffer, 0, n);
+          }
         }
       }
     }
+  }
 
-    FilesRemoveUtil.removeFileOrFolder(pathFolder + "/" + file.getName());
-    FilesRemoveUtil.removeFileOrFolder(pathFolder);
-    return possiblyAmount;
+  public static void mergeFiles(String pathToFolder)
+      throws IOException {
+    final List<String> files = FilesPartUtils.getAllParts(pathToFolder);
+    final int index = files.get(0).indexOf("-#-");
+    try (final FileOutputStream outputStream = new FileOutputStream(
+        pathToFolder + "\\" + FilesRemoveUtil.removeExtension(files.get(0).substring(index + 3)))) {
+      byte[] buffer = new byte[1024];
+      int bytesRead;
+
+      for (final String chunkFileName : files) {
+        try (final FileInputStream inputStream = new FileInputStream(chunkFileName)) {
+          while ((bytesRead = inputStream.read(buffer)) > 0) {
+            outputStream.write(buffer, 0, bytesRead);
+          }
+        }
+        FilesRemoveUtil.removeFileOrFolder(chunkFileName);
+      }
+    }
   }
 }

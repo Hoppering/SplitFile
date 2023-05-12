@@ -66,7 +66,7 @@ public class JoinPageController {
 
   @FXML
   protected void joinFilesToOne(ActionEvent event) throws Exception {
-    Splitter.joinForManyFiles(fileForJoin.getAbsolutePath());
+    Splitter.mergeFiles(fileForJoin.getAbsolutePath());
     secondStageEllipse.setFill(colorReadyStage);
     secondStageLine.setStroke(colorReadyStage);
     thirdStageEllipse.setFill(colorReadyStage);

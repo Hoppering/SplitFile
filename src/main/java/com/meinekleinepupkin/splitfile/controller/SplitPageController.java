@@ -9,7 +9,10 @@ import com.meinekleinepupkin.splitfile.exception.NoContentTypeEnum;
 import com.meinekleinepupkin.splitfile.service.Splitter;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,8 +33,6 @@ public class SplitPageController {
   @FXML
   private ComboBox<Integer> comboBox;
   @FXML
-  private Button testButton;
-  @FXML
   private Button startButton;
   @FXML
   private Button closeButton;
@@ -42,18 +43,13 @@ public class SplitPageController {
   @FXML
   private Ellipse thirdStageEllipse;
   @FXML
-  private Ellipse forthStageEllipse;
-  @FXML
   private Line firstStageLine;
   @FXML
   private Line secondStageLine;
-  @FXML
-  private Line thirdStageLine;
 
   private File fileForSplit = new File("");
   private final Color colorReadyStage = Color.rgb(43, 152, 240);
   private final Color colorCurrentStage = Color.rgb(146, 193, 0);
-  Map<Integer, Integer> possiblyAmount = new HashMap<>();
 
   @FXML
   protected void goToHomePage(ActionEvent event) throws IOException {
@@ -74,38 +70,26 @@ public class SplitPageController {
     if (fileForSplit == null) {
       NoContentException.contentNotChosen(NoContentTypeEnum.FILE);
     } else {
-      testButton.setDisable(false);
       firstStageEllipse.setFill(colorReadyStage);
       secondStageEllipse.setFill(colorCurrentStage);
       firstStageLine.setStroke(colorReadyStage);
     }
-  }
-
-  @FXML
-  protected void testSplitFile(ActionEvent event) throws Exception {
-    possiblyAmount = Splitter.checkPossiblyAmount(fileForSplit);
-    for (Map.Entry<Integer, Integer> entry : possiblyAmount.entrySet()) {
-      comboBox.getItems().add(entry.getKey());
+    int i = 0;
+    while(i < 20){
+      i++;
+      comboBox.getItems().add(i);
     }
     startButton.setDisable(false);
     comboBox.setDisable(false);
-    secondStageEllipse.setFill(colorReadyStage);
-    thirdStageEllipse.setFill(colorCurrentStage);
-    secondStageLine.setStroke(colorReadyStage);
   }
 
   @FXML
   protected void splitFile(ActionEvent event) throws Exception {
     String pathFolder = createFolderForSplitFile(fileForSplit);
-    for (Map.Entry<Integer, Integer> entry : possiblyAmount.entrySet()) {
-      if (entry.getKey().equals(comboBox.getValue())) {
-        Splitter.splitForManyFiles(pathFolder, fileForSplit, entry.getKey(), entry.getValue());
-        break;
-      }
-    }
+    Splitter.splitForManyFiles(pathFolder, fileForSplit, comboBox.getValue());
+    secondStageLine.setStroke(colorReadyStage);
+    secondStageEllipse.setFill(colorReadyStage);
     thirdStageEllipse.setFill(colorReadyStage);
-    thirdStageLine.setStroke(colorReadyStage);
-    forthStageEllipse.setFill(colorReadyStage);
     closeButton.setDisable(false);
   }
 }
